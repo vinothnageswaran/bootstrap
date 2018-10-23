@@ -43,4 +43,5 @@
    }
    
    bindDatePicker();
+   //html
  });
