@@ -173,7 +173,7 @@ if (!$conn) {
 			echo "<tr>";
 			 
 			 
-			echo "<a href='test1.php' title='Page to go to'>Outpatient appointment details</a>";
+			echo "<a href='test2.php' title='Page to go to'>Outpatient appointment details</a>";
 			 
 			
 			echo "<td>".$formattedDate."</td>";	
