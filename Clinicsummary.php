@@ -77,12 +77,11 @@ if (!$conn) {
             $query1 = "SELECT * FROM QM";
 			//$query2 = "SELECT Clinics ,COUNT('CLINICS') AS COUNT FROM QM GROUP BY CLINICS;";
 			
-			//$ReverseStartdate = $_GET["datepicker1"];
-			//$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
-			$startdate ='2018-10-24';
+			$ReverseStartdate = $_GET["datepicker1"];
+			$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
+			//$startdate ='2018-10-24';
 			$timestamp = strtotime($startdate);
 			$formattedDate = date('F d, Y', $timestamp);
-			
 			
 			
 			
@@ -95,6 +94,10 @@ if (!$conn) {
 			"<td></td>";
 			
 			
+			session_start();
+			$_SESSION["date"] = $startdate;
+			$_SESSION["favanimal"] = "cat";
+			echo "Session variables are set.";
 			
 			
 			
@@ -169,10 +172,7 @@ if (!$conn) {
             while($results = mysqli_fetch_assoc($raw_results)){
 			echo "<tr>";
 			 
-			 
-			 
-			 
-			 
+		
 			echo "<td>".$formattedDate."</td>";	
 				
 			echo "<td>".$results['Clinicscount1']."</td>";

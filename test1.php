@@ -70,13 +70,16 @@ width: 260px;
 
 
 <?php
+
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "mysql";
 // Create connection
 
-
+session_start();
+echo "Date is " . $_SESSION["date"] . ".<br>";
 
 
 
@@ -94,8 +97,12 @@ if (!$conn) {
             $query1 = "SELECT * FROM QM";
 			$query2 = "SELECT Clinics ,COUNT('CLINICS') AS COUNT FROM QM GROUP BY CLINICS;";
 			
-			$ReverseStartdate = $_GET["datepicker1"];
-			$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
+			//$ReverseStartdate = $_GET["datepicker1"];
+			//$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
+			
+			$startdate=$_SESSION["date"];
+			
+			echo $startdate;
 			//$startdate ='2018-11-29';
 			$enddate ='2018-09-26';
 			
