@@ -78,11 +78,6 @@ $database = "mysql";
 
 session_start();
 
-
-
-
-
-
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Check connection
 if (!$conn) {
@@ -124,11 +119,11 @@ if (!$conn) {
 			(SELECT min(DATE_FORMAT(startdatetime, '%H:%i')) FROM qmy c where c.ownercodeevent =a.ownercodeevent and apttypecode <>'CO'and DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate' and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59') as FP,
 			(SELECT COUNT('apttypecode') from qmy  where apttypecode='CO'and DATE(startdatetime) >='$startdate' AND DATE(startdatetime) <= '$startdate'and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59') as COl,
 			
-			OwnerWaitingRoomEvent from qmy a where DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate'  and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59'
+			OwnerWaitingRoomEvent from qmy a where DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate'  and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' and apttypecode<> 'CO'
 			group by OwnerWaitingRoomEvent ,OwnerDescEvent with rollup   ";
 			
 			
-			$query4= "select SUM(count)as Total from (select DISTINCT OwnerDescEvent, COUNT('OwnerDescEvent') AS COUNT,OwnerWaitingRoomEvent from qmy where DATE(startdatetime) >= '$startdate'  AND DATE(startdatetime) <= '$startdate' and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' group by OwnerDescEvent order by OwnerWaitingRoomEvent )a ";
+			$query4= "select SUM(count)as Total from (select DISTINCT OwnerDescEvent, COUNT('OwnerDescEvent') AS COUNT,OwnerWaitingRoomEvent from qmy where DATE(startdatetime) >= '$startdate'  AND DATE(startdatetime) <= '$startdate' and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' and apttypecode<>'CO' group by OwnerDescEvent order by OwnerWaitingRoomEvent )a ";
 			
 			
 			
@@ -198,12 +193,12 @@ if (!$conn) {
 			(SELECT min(DATE_FORMAT(startdatetime, '%H:%i')) FROM qmy c where c.ownercodeevent =a.ownercodeevent and apttypecode <>'CO'and DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate' and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59') as FP,
 			(SELECT COUNT('apttypecode') from qmy  where apttypecode='CO'and DATE(startdatetime) >='$startdate' AND DATE(startdatetime) <= '$startdate'and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59') as COl,
 			
-			OwnerWaitingRoomEvent from qmy a where DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate'  and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59'
+			OwnerWaitingRoomEvent from qmy a where DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate'  and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59' and  apttypecode<> 'CO'
 			group by OwnerWaitingRoomEvent ,OwnerDescEvent with rollup   ";
 			
 			
 			
-			$querya4= "select SUM(count)as Total from (select DISTINCT OwnerDescEvent, COUNT('OwnerDescEvent') AS COUNT,OwnerWaitingRoomEvent from qmy where DATE(startdatetime) >= '$startdate'  AND DATE(startdatetime) <= '$startdate' and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59' group by OwnerDescEvent order by OwnerWaitingRoomEvent )a ";
+			$querya4= "select SUM(count)as Total from (select DISTINCT OwnerDescEvent, COUNT('OwnerDescEvent') AS COUNT,OwnerWaitingRoomEvent from qmy where DATE(startdatetime) >= '$startdate'  AND DATE(startdatetime) <= '$startdate' and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59' and apttypecode<>'CO' group by OwnerDescEvent order by OwnerWaitingRoomEvent )a ";
 			
 			
 			
@@ -237,11 +232,7 @@ if (!$conn) {
 			
 			
 			</div>
-			</tr>";
-			
-			
-			
-			
+			</tr>";			
 		
 			
 			
