@@ -97,7 +97,7 @@ if (!$conn) {
 			session_start();
 			$_SESSION["date"] = $startdate;
 			$_SESSION["favanimal"] = "cat";
-			echo "Session variables are set.";
+			
 			
 			
 			
@@ -172,7 +172,10 @@ if (!$conn) {
             while($results = mysqli_fetch_assoc($raw_results)){
 			echo "<tr>";
 			 
-		
+			 
+			echo "<a href='test1.php' title='Page to go to'>Outpatient appointment details</a>";
+			 
+			
 			echo "<td>".$formattedDate."</td>";	
 				
 			echo "<td>".$results['Clinicscount1']."</td>";
