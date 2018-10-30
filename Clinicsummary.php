@@ -89,7 +89,7 @@ if (!$conn) {
 			$FirstPatient= "SELECT max(DATE_FORMAT(startdatetime, '%H:%i')) FROM qmy";
 			
 			$link_address1 = 'csv2sql.php';
-			echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
+			echo "<a href='".$link_address1."'>Admin</a>";
 			
 			"<td></td>";
 			
@@ -152,7 +152,7 @@ if (!$conn) {
 			
 			 
 			 
-			 echo "<div class='col-xs-3	'>
+			 echo "<div class='col-md-3	'>
 			 <table class='table table-hover table-sm table-responsive table-bordered '>
 			  
 			<tr>
@@ -173,7 +173,7 @@ if (!$conn) {
 			echo "<tr>";
 			 
 			 
-			echo "<a href='test2.php' title='Page to go to'>Outpatient appointment details</a>";
+			echo "<a href='test2.php'>Outpatient appointment details</a>";
 			 
 			
 			echo "<td>".$formattedDate."</td>";	
@@ -190,7 +190,7 @@ if (!$conn) {
 			
 			//Printing Morning Clinics
 			
-			  echo "<div class='col-xs-6'>
+			  echo "<div class='col-md-3'>
 			 <table class='table table-hover table-sm table-responsive table-bordered '>
 			  
 			<tr>
@@ -201,6 +201,7 @@ if (!$conn) {
 			</tr>";
 			
 			$Total= 0;
+			
 			while($results3 = mysqli_fetch_assoc($raw_results3)){
 			
 			
@@ -230,7 +231,7 @@ if (!$conn) {
 				
 				
 				
-				echo "<div class='col-xs-6'>
+				echo "<div class='col-xs-4'>
 			 <table class='table table-hover table-sm table-responsive table-bordered '>
 			  
 			<tr>
@@ -254,13 +255,7 @@ if (!$conn) {
 			
 			 $Totalafternoon = $Totalafternoon + $results3afternoon['uniqueCcount'];
 			
-	
-	
-		
-			
-		
-			
-			  
+		  
 			   echo " </tr>";
 			
 			
@@ -268,24 +263,7 @@ if (!$conn) {
 				echo"<td>Total Afternoon Clinics<br></td>" ;  	
 				echo "<td>$Totalafternoon</td>";	
 	    		
-			/**
-			$sqlquery="select DISTINCT ownerwaitingroomevent , count(OwnerWaitingRoomEvent) as uniqueCcount from qmy where DATE(startdatetime) = '$startdate' and apttypecode <>'CO' 
-		and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' 
-		group by OwnerWaitingRoomEvent";
-				
-				$sql = mysqli_query($conn,$sqlquery)or die(mysqli_error($conn));
-				$userinfo = array();
-
-				while ($row_user = mysqli_fetch_assoc($sql))
-				$userinfo[] = $row_user;
-				
-				foreach ($userinfo as $user) {
-				echo "Id: {$user[ownerwaitingroomevent]}<br />"
-				. "Name: {$user[uniqueCcount]}<br />"
-				
-				}	
-				
-		**/		
+			
 				
 				
 				
