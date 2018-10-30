@@ -100,7 +100,9 @@ if (!$conn) {
 			//$ReverseStartdate = $_GET["datepicker1"];
 			//$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
 			
-			$startdate=$_SESSION["date"];
+			
+			//$_SESSION["date"];
+			$startdate='2018-11-21';
 			
 			
 			//$startdate ='2018-11-29';
