@@ -108,10 +108,10 @@ if (!$conn) {
 			
 			session_start();
 			$_SESSION["date"] = $startdate;
-			$_SESSION["favanimal"] = "cat";
 			
 			
 			
+			echo "<a href='test2.php'>Outpatient appointment details</a>";
 			
 		
 		//Morning
@@ -185,7 +185,7 @@ if (!$conn) {
 			echo "<tr>";
 			 
 			 
-			echo "<a href='test2.php'>Outpatient appointment details</a>";
+			
 			 
 			
 			echo "<td>".$formattedDate."</td>";	
