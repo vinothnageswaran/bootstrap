@@ -57,6 +57,7 @@ top: 100;
 width: 260px;
 }
 </style>
+
   
   <html>
 <body>
@@ -67,7 +68,7 @@ $password = "";
 $database = "mysql";
 
 $link_address1 = 'Datepicker.html';
-echo "<a  href='".$link_address1."'>Home</a>";
+echo "<a href='".$link_address1."'>Home</a>";
 
 echo "\t" ;
 echo "\t" ;
@@ -100,7 +101,7 @@ if (!$conn) {
 			echo "\t" ;
 			echo "\t" ;
 			$link_address1 = 'csv2sql.php';
-			echo "<a href='".$link_address1."'>Admin</a>";
+			echo "<a class='top-right' href='".$link_address1."'>Admin</a>";
 			
 			"<td></td>";
 			
@@ -165,7 +166,7 @@ if (!$conn) {
 			 
 			 echo "<div class='col-md-3	'>
 			 <table class='table table-hover  table-responsive table-bordered'>
-			  
+			  <thead class='alert-info'>
 			<tr>
 			<th>Day</th>
 			<th>Total Clinics</th>
@@ -199,18 +200,26 @@ if (!$conn) {
 			 }
 			}
 			
+			
+			
 			//Printing Morning Clinics
 			
-			  echo "<div class='col-md-3'>
-			 <table class='table table-hover table-responsive table-bordered '>
+			  echo "
+			 <table class='table table-hover table-responsive table-bordered table-bg-primary'>
+			
 			  
 			<tr>
+	
 			
 			<th>Clinics</th>
 			<th>Number of appointments</th>
 		
 			</div>
 			</tr>";
+			
+			"</br>";
+			
+			echo "<label for='one'>Morning Clincis Summary</label>";
 			
 			$Total= 0;
 			
@@ -272,10 +281,10 @@ if (!$conn) {
 				echo "<td>$Totalafternoon</td>";	
 	    		
 			
-				
+		echo "<label for='one'>Afternoon clinics summary</label>";
 				
 				
 ?>
-<label for="one">Afternoon clinics summary</label>
+
 </body>
 </html>
