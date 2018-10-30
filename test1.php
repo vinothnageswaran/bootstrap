@@ -64,18 +64,21 @@ top: 100;
 width: 260px;
 }
 </style>
-  
+  <h2>Morning</h2>
   <html>
 <body>
 
 
 <?php
+
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "mysql";
 // Create connection
 
+session_start();
 
 
 
@@ -94,12 +97,17 @@ if (!$conn) {
             $query1 = "SELECT * FROM QM";
 			$query2 = "SELECT Clinics ,COUNT('CLINICS') AS COUNT FROM QM GROUP BY CLINICS;";
 			
-			$ReverseStartdate = $_GET["datepicker1"];
-			$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
+			//$ReverseStartdate = $_GET["datepicker1"];
+			//$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
+			
+			$startdate=$_SESSION["date"];
+			
+			
 			//$startdate ='2018-11-29';
 			$enddate ='2018-09-26';
 			
-			
+			$timestamp = strtotime($startdate);
+			$formattedDate = date('F d, Y', $timestamp);
 			
 			//$CO= "select count(*) from(select COUNT('apttypecode') from qmy where apttypecode='CO') as CO";
 			$FirstPatient= "SELECT max(DATE_FORMAT(startdatetime, '%H:%i')) FROM qmy";
@@ -157,6 +165,10 @@ if (!$conn) {
 			
 			$Total=0;
 			
+			echo "$formattedDate";	
+			
+			
+			
 			while($Clinicssummarymorning_results = mysqli_fetch_assoc($Clinicssummarymorning_rawresults )){
 				
 			while($results1 = mysqli_fetch_assoc($raw_results1)){
@@ -174,7 +186,7 @@ if (!$conn) {
 			 echo "<td>".$results['CO']."</td>";
 		
 			  // echo '<a href=pageyouwant.php?COUNT="'.$results['COUNT'].'"</a>';
-			  	echo "<td>".$Clinicssummarymorning_results['uniqueCcount' ]."</td>";	
+			  //	echo "<td>".$Clinicssummarymorning_results['uniqueCcount' ]."</td>";	
 			  $Total = $Total + $Clinicssummarymorning_results['uniqueCcount'];
 			  
 			 

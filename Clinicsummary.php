@@ -57,6 +57,7 @@ top: 100;
 width: 260px;
 }
 </style>
+
   
   <html>
 <body>
@@ -65,6 +66,15 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "mysql";
+
+$link_address1 = 'Datepicker.html';
+echo "<a href='".$link_address1."'>Home</a>";
+
+echo "\t" ;
+echo "\t" ;
+echo "\t" ;
+echo "\t" ;
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Check connection
@@ -77,23 +87,28 @@ if (!$conn) {
             $query1 = "SELECT * FROM QM";
 			//$query2 = "SELECT Clinics ,COUNT('CLINICS') AS COUNT FROM QM GROUP BY CLINICS;";
 			
-			//$ReverseStartdate = $_GET["datepicker1"];
-			//$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
-			$startdate ='2018-10-24';
+			$ReverseStartdate = $_GET["datepicker1"];
+			$startdate=date("Y-m-d", strtotime($ReverseStartdate) );
+			//$startdate ='2018-10-24';
 			$timestamp = strtotime($startdate);
 			$formattedDate = date('F d, Y', $timestamp);
-			
 			
 			
 			
 			//$CO= "select count(*) from(select COUNT('apttypecode') from qmy where apttypecode='CO') as CO";
 			$FirstPatient= "SELECT max(DATE_FORMAT(startdatetime, '%H:%i')) FROM qmy";
 			
+			echo "\t" ;
+			echo "\t" ;
 			$link_address1 = 'csv2sql.php';
-			echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
+			echo "<a class='top-right' href='".$link_address1."'>Admin</a>";
 			
 			"<td></td>";
 			
+			
+			session_start();
+			$_SESSION["date"] = $startdate;
+			$_SESSION["favanimal"] = "cat";
 			
 			
 			
@@ -149,15 +164,15 @@ if (!$conn) {
 			
 			 
 			 
-			 echo "<div class='col-xs-3	'>
-			 <table class='table table-hover table-sm table-responsive table-bordered '>
-			  
+			 echo "<div class='col-md-3	'>
+			 <table class='table table-hover  table-responsive table-bordered'>
+			  <thead class='alert-info'>
 			<tr>
 			<th>Day</th>
 			<th>Total Clinics</th>
 			<th>Total appointments</th>
 			
-			<th>Total CO appointments</th>
+			<th>Total CO</th>
 			</div>
 			</tr>";
 			
@@ -170,9 +185,9 @@ if (!$conn) {
 			echo "<tr>";
 			 
 			 
+			echo "<a href='test2.php'>Outpatient appointment details</a>";
 			 
-			 
-			 
+			
 			echo "<td>".$formattedDate."</td>";	
 				
 			echo "<td>".$results['Clinicscount1']."</td>";
@@ -185,31 +200,35 @@ if (!$conn) {
 			 }
 			}
 			
+			
+			
 			//Printing Morning Clinics
 			
-			  echo "<div class='col-xs-6'>
-			 <table class='table table-hover table-sm table-responsive table-bordered '>
+			  echo "
+			 <table class='table table-hover table-responsive table-bordered table-bg-primary'>
+			
 			  
 			<tr>
+	
+			
 			<th>Clinics</th>
 			<th>Number of appointments</th>
 		
 			</div>
 			</tr>";
 			
+			"</br>";
+			
+			echo "<label for='one'>Morning Clincis Summary</label>";
+			
 			$Total= 0;
+			
 			while($results3 = mysqli_fetch_assoc($raw_results3)){
 			
 			
 			echo "<tr>";
 			 
-			 // echo "<td>".$results."</td>";
-			 
-			 
-			 
-			//echo "<td>".$formattedDate."</td>";	
-			//echo "<td>".$results['ownercodeevent']."</td>";	
-					
+			 				
 			echo "<td>".$results3['ownerwaitingroomevent']."</td>";
 			echo "<td>".$results3['uniqueCcount' ]."</td>";	
 			
@@ -227,10 +246,11 @@ if (!$conn) {
 				
 				
 				
-				echo "<div class='col-xs-6'>
+				echo "<div class='col-xs-4'>
 			 <table class='table table-hover table-sm table-responsive table-bordered '>
 			  
 			<tr>
+			
 			<th>Clinics</th>
 			<th>Number of appointments</th>
 		
@@ -246,18 +266,13 @@ if (!$conn) {
 			
 			
 			echo "<tr>";
+			
 			echo "<td>".$results3afternoon ['ownerwaitingroomevent']."</td>";
 			echo "<td>".$results3afternoon ['uniqueCcount' ]."</td>";	
 			
 			 $Totalafternoon = $Totalafternoon + $results3afternoon['uniqueCcount'];
 			
-	
-	
-		
-			
-		
-			
-			  
+		  
 			   echo " </tr>";
 			
 			
@@ -265,28 +280,11 @@ if (!$conn) {
 				echo"<td>Total Afternoon Clinics<br></td>" ;  	
 				echo "<td>$Totalafternoon</td>";	
 	    		
-			/**
-			$sqlquery="select DISTINCT ownerwaitingroomevent , count(OwnerWaitingRoomEvent) as uniqueCcount from qmy where DATE(startdatetime) = '$startdate' and apttypecode <>'CO' 
-		and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' 
-		group by OwnerWaitingRoomEvent";
-				
-				$sql = mysqli_query($conn,$sqlquery)or die(mysqli_error($conn));
-				$userinfo = array();
-
-				while ($row_user = mysqli_fetch_assoc($sql))
-				$userinfo[] = $row_user;
-				
-				foreach ($userinfo as $user) {
-				echo "Id: {$user[ownerwaitingroomevent]}<br />"
-				. "Name: {$user[uniqueCcount]}<br />"
-				
-				}	
-				
-		**/		
-				
+			
+		echo "<label for='one'>Afternoon clinics summary</label>";
 				
 				
 ?>
-<label for="one">Afternoon clinics summary</label>
+
 </body>
 </html>
