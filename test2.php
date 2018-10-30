@@ -21,13 +21,6 @@
 
 
 
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-	
-  } );
-  </script>
-  
 </head>
 <body>
 <title>Bootstrap Example</title>
@@ -50,7 +43,7 @@
 </style>
 <h2 class="city">Outpatients summary report</h2>
 
-<h3 class="city">Morning</h3>
+
   <table style="width:10%">
   <tr>
   </tr>
@@ -109,7 +102,12 @@ if (!$conn) {
 			
 			$link_address1 = 'csv2sql.php';
 			
-			echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
+			echo "<a style='padding-right: 5px ' href='".$link_address1."'>Admin</a>";
+			
+			
+			$Clinicssummarymorning= " select DISTINCT ownerwaitingroomevent , count(OwnerWaitingRoomEvent) as uniqueCcount from qmy where DATE(startdatetime) = '$startdate' and apttypecode <>'CO' 
+			and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' 
+			group by OwnerWaitingRoomEvent";
 		
 			//Morning
 			
@@ -120,7 +118,7 @@ if (!$conn) {
 			(SELECT COUNT('apttypecode') from qmy  where apttypecode='CO'and DATE(startdatetime) >='$startdate' AND DATE(startdatetime) <= '$startdate'and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59') as COl,
 			
 			OwnerWaitingRoomEvent from qmy a where DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate'  and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' and apttypecode<> 'CO'
-			group by OwnerWaitingRoomEvent ,OwnerDescEvent with rollup   ";
+			group by OwnerWaitingRoomEvent ,OwnerDescEvent    ";
 			
 			
 			$query4= "select SUM(count)as Total from (select DISTINCT OwnerDescEvent, COUNT('OwnerDescEvent') AS COUNT,OwnerWaitingRoomEvent from qmy where DATE(startdatetime) >= '$startdate'  AND DATE(startdatetime) <= '$startdate' and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' and apttypecode<>'CO' group by OwnerDescEvent order by OwnerWaitingRoomEvent )a ";
@@ -129,11 +127,32 @@ if (!$conn) {
 			
              $raw_results = mysqli_query($conn,"$query3") or die(mysqli_error($conn)); 
 			 $raw_results1 = mysqli_query($conn,"$query4") or die(mysqli_error($conn)); 
+			 $Clinicssummarymorning_rawresults = mysqli_query($conn,"$Clinicssummarymorning") or die(mysqli_error($conn));
 			 
 			 
+			 echo "<div class='col-xs-4'>
 			 
-			 echo "<div class='col-xs-6'>
+			
 			 <table class='table table-hover table-sm table-responsive table-bordered '>
+			  
+			<tr>
+			
+			<div class='container'>
+			<div class='row'>
+				
+				
+				
+			<th>$formattedDate </th>
+			<th>Morning Clinics</th>
+			
+			 
+			 
+			</tr>";
+			 
+			 echo "<div class='col-xs-4'>
+			 <table class='table table-hover table-sm table-responsive table-bordered table-striped  '>
+			 
+			 
 			  
 			<tr>
 			<th>Clinics</th>
@@ -150,9 +169,11 @@ if (!$conn) {
 			
 			</div>
 			</tr>";
+			$Total=0;
 			
-			
-			
+			while($Clinicssummarymorning_results = mysqli_fetch_assoc($Clinicssummarymorning_rawresults )){
+				
+			while($results1 = mysqli_fetch_assoc($raw_results1)){
 			
 			
             while($results = mysqli_fetch_assoc($raw_results)){
@@ -166,26 +187,33 @@ if (!$conn) {
 			  echo "<td>".$results['LP']."</td>";
 			 echo "<td>".$results['CO']."</td>";
 			  // echo '<a href=pageyouwant.php?COUNT="'.$results['COUNT'].'"</a>';
-			  
+			  $Total = $Total + $Clinicssummarymorning_results['uniqueCcount'];
 			  
 			   echo "</tr>";
 }
+			}
+			}
+			echo"<td></td>" ; 
+			echo"<td></td>" ; 
+			
+			 
+			echo"<td>Total Morning Clinics excluding CO<br></td>" ;  	
+			echo "<td>$Total</td>";	
 
 
-
-          while($results1 = mysqli_fetch_assoc($raw_results1)){
-            //$results = mysql_fetch_array($raw_results) puts data from database into array, while it's valid it does the loop
-			echo "<tr>";
-               //echo "<td>".$results['Clinics']." </td>";
-			  //echo "<td>".$results1['Total']." </td>";
-			  // echo "<td>".$results['Appointmentdate']."</td>";
-			   echo "</tr>";
+        
 			   
 
-}
+
 
 //Afternoon
 
+
+			$Clinicssummaryafternoon= " select DISTINCT ownerwaitingroomevent , count(OwnerWaitingRoomEvent) as uniqueCcount from qmy where DATE(startdatetime) = '$startdate' and apttypecode <>'CO' 
+			and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59' 
+			group by OwnerWaitingRoomEvent";
+			
+			
 
 			$querya3= "select DISTINCT a.ownercodeevent,a.OwnerDescEvent, COUNT('OWNERCODEEVENT') AS COUNT,
 			( select COUNT(*) from qmy d where d.ownercodeevent =a.ownercodeevent and apttypecode='CO' and DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate') as CO,
@@ -194,7 +222,7 @@ if (!$conn) {
 			(SELECT COUNT('apttypecode') from qmy  where apttypecode='CO'and DATE(startdatetime) >='$startdate' AND DATE(startdatetime) <= '$startdate'and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59') as COl,
 			
 			OwnerWaitingRoomEvent from qmy a where DATE(startdatetime) >= '$startdate' AND DATE(startdatetime) <= '$startdate'  and DATE_FORMAT(startdatetime, '%H:%i')>='12:00' and DATE_FORMAT(startdatetime, '%H:%i') <='23:59' and  apttypecode<> 'CO'
-			group by OwnerWaitingRoomEvent ,OwnerDescEvent with rollup   ";
+			group by OwnerWaitingRoomEvent ,OwnerDescEvent  ";
 			
 			
 			
@@ -204,10 +232,11 @@ if (!$conn) {
 			
              $raw_resultsa = mysqli_query($conn,"$querya3") or die(mysqli_error($conn)); 
 			 $raw_results1a = mysqli_query($conn,"$querya4") or die(mysqli_error($conn)); 
+			 $Clinicssummaryafternoon_rawresults = mysqli_query($conn,"$Clinicssummaryafternoon") or die(mysqli_error($conn));
 			 
 			 
 			 
-			 echo "<div class='col-xs-6'>
+			  echo "<div class='col-xs-4'>
 			 
 			
 			 <table class='table table-hover table-sm table-responsive table-bordered'>
@@ -218,7 +247,25 @@ if (!$conn) {
 			<div class='row'>
 				
 				
-				</div>
+				
+			<th>$formattedDate </th>
+			<th>Afternoon Clinics</th>
+			
+			 
+			 
+			</tr>";
+			 
+			 echo "<div class='col-xs-4'>
+			 
+				
+			 <table class='table table-hover table-sm table-responsive table-bordered table-striped '>
+			  
+			<tr>
+			
+			<div class='container'>
+			<div class='row'>
+				
+			
 			
 			
 			<th>Clinics</th>
@@ -235,9 +282,12 @@ if (!$conn) {
 			</tr>";			
 		
 			
+			$Total=0;
 			
-			
-            while($resultsa = mysqli_fetch_assoc($raw_resultsa)){
+			while($Clinicssummaryafternoon_results = mysqli_fetch_assoc($Clinicssummaryafternoon_rawresults )){
+				
+			while($results1 = mysqli_fetch_assoc($raw_results1a)){
+			while($resultsa = mysqli_fetch_assoc($raw_resultsa)){
 			echo "<tr>";
 			echo "<td>".$resultsa['OwnerWaitingRoomEvent']."</td>";
 			   echo "<td>".$resultsa['ownercodeevent']." </td>";
@@ -249,22 +299,22 @@ if (!$conn) {
 			 echo "<td>".$resultsa['CO']."</td>";
 			  // echo '<a href=pageyouwant.php?COUNT="'.$results['COUNT'].'"</a>';
 			  
+			   $Total = $Total + $Clinicssummaryafternoon_results['uniqueCcount'];
+			  
 			  
 			   echo "</tr>";
 }
+			}
+			}
+			
+		echo"<td></td>" ; 
+			echo"<td></td>" ; 
+			
+			 
+			echo"<td>Total afternoon Clinics excluding CO<br></td>" ;  	
+			echo "<td>$Total</td>"
 
-
-
-          while($results1a = mysqli_fetch_assoc($raw_results1a)){
-            //$results = mysql_fetch_array($raw_results) puts data from database into array, while it's valid it does the loop
-			echo "<tr>";
-               //echo "<td>".$resultsa['Clinics']." </td>";
-			  //echo "<td>".$results1a['Total']." </td>";
-			  // echo "<td>".$resultsa['Appointmentdate']."</td>";
-			   echo "</tr>";
-			   
-
-}
+         
 
 ?>
 </body>
