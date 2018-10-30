@@ -236,10 +236,11 @@ if (!$conn) {
 			 
 			 
 			 
-			  echo "<div class='col-xs-4'>
+			  echo "<div class='col-xs-12'>
 			 
 			
 			 <table class='table table-hover table-sm table-responsive table-bordered'>
+			
 			  
 			<tr>
 			

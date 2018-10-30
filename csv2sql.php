@@ -35,7 +35,7 @@ width: 260px;
 		<div class="col-xs-3">
         <input type="name" class="form-control" name="csv" id="csv" required>
 		</div>
-		eg. MYDATA.csv
+		eg. C:/temp/qmtoreport.csv
     </div>
 	<div class="form-group">
 	<label for="login" class="control-label col-xs-2"></label>
@@ -89,9 +89,6 @@ $r1=mysqli_fetch_array($result1);
 
 $delete = "delete from qmy";
 
-
-
-
 mysqli_query($cons,"$delete") or die(mysqli_error($cons));
 
 //echo "<br>Cleaning up tables </br>";
@@ -103,9 +100,12 @@ mysqli_query($cons, '
         LINES TERMINATED BY \'\n\'
 ');
 
+//delete empty rows if there are any
 
+$deleteemptyrows="delete from qmy where OwnerCodeEvent=''";
+mysqli_query($cons,"$deleteemptyrows") or die(mysqli_error($cons));
 
-
+//display number of records updated in the daabase
 
 $result2=mysqli_query($cons,"select count(*) count from $table");
 $r2=mysqli_fetch_array($result2);
