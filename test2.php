@@ -108,8 +108,8 @@ if (!$conn) {
 			echo "<a style='padding-right: 5px ' href='".$link_address1."'>Admin</a>";
 			
 			
-			$Clinicssummarymorning= " select DISTINCT ownerwaitingroomevent , count(OwnerWaitingRoomEvent) as uniqueCcountm from qmy where DATE(startdatetime) = '$startdate' and apttypecode <>'CO' 
-			and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' 
+			$Clinicssummarymorning= " select DISTINCT ownerwaitingroomevent , count(OwnerWaitingRoomEvent) as uniqueCcountm from qmy where DATE(startdatetime) = '$startdate' 
+			and DATE_FORMAT(startdatetime, '%H:%i')>='00:00' and DATE_FORMAT(startdatetime, '%H:%i') <='11:59' and apttypecode <>'CO' 
 			group by OwnerWaitingRoomEvent";
 		
 			//Morning
@@ -175,12 +175,12 @@ if (!$conn) {
 			
 			</div>
 			</tr>";
-			$Total=0;
+			$Totalmorning=0;
 			
 			
 			
 				
-					while($Clinicssummarymorning_results = mysqli_fetch_assoc($Clinicssummarymorning_rawresults )){
+					
 						while($results = mysqli_fetch_assoc($raw_results)){
 			
             
@@ -195,18 +195,24 @@ if (!$conn) {
 			  echo "<td>".$results['LP']."</td>";
 			 echo "<td>".$results['CO']."</td>";
 			  // echo '<a href=pageyouwant.php?COUNT="'.$results['COUNT'].'"</a>';
-			  $Total = $Total + $Clinicssummarymorning_results['uniqueCcountm'];
 			  
-			   echo "</tr>";
+			 
 
 			}
+			
+			while($Clinicssummarymorning_results = mysqli_fetch_assoc($Clinicssummarymorning_rawresults )){
+				
+			  $Totalmorning = $Totalmorning + $Clinicssummarymorning_results['uniqueCcountm'];
+			  
+			   echo "</tr>";
+				
 			}
 			echo"<td></td>" ; 
 			echo"<td></td>" ; 
 			
 			 
 			echo"<td>Total Morning Clinics excluding CO<br></td>" ;  	
-			echo "<td>$Total</td>";	
+			echo "<td>$Totalmorning</td>";	
 
 
 
@@ -288,13 +294,13 @@ if (!$conn) {
 			</tr>";			
 		
 			
-			$Total=0;
+			$Totalafternoon=0;
 			
 			
 				
 		
 			
-				while($Clinicssummaryafternoon_results = mysqli_fetch_assoc($Clinicssummaryafternoon_rawresults )){	
+				
 					while($resultsa = mysqli_fetch_assoc($raw_resultsa)){
 					
 				
@@ -309,12 +315,18 @@ if (!$conn) {
 			 echo "<td>".$resultsa['CO']."</td>";
 			  // echo '<a href=pageyouwant.php?COUNT="'.$results['COUNT'].'"</a>';
 			  
-			   $Total = $Total + $Clinicssummaryafternoon_results['uniqueCcountf'];
+			  
 			  
 			  
 			   echo "</tr>";
 
 			}
+			
+			while($Clinicssummaryafternoon_results = mysqli_fetch_assoc($Clinicssummaryafternoon_rawresults )){	
+			
+			 $Totalafternoon = $Totalafternoon + $Clinicssummaryafternoon_results['uniqueCcountf'];
+			 
+			
 			}
 			
 		echo"<td></td>" ; 
@@ -322,7 +334,7 @@ if (!$conn) {
 			
 			 
 			echo"<td>Total afternoon Clinics excluding CO<br></td>" ;  	
-			echo "<td>$Total</td>"
+			echo "<td>$Totalafternoon</td>"
 
          
 
