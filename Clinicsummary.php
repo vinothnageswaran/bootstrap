@@ -65,6 +65,15 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "mysql";
+
+$link_address1 = 'Datepicker.html';
+echo "<a  href='".$link_address1."'>Home</a>";
+
+echo "\t" ;
+echo "\t" ;
+echo "\t" ;
+echo "\t" ;
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Check connection
@@ -88,6 +97,8 @@ if (!$conn) {
 			//$CO= "select count(*) from(select COUNT('apttypecode') from qmy where apttypecode='CO') as CO";
 			$FirstPatient= "SELECT max(DATE_FORMAT(startdatetime, '%H:%i')) FROM qmy";
 			
+			echo "\t" ;
+			echo "\t" ;
 			$link_address1 = 'csv2sql.php';
 			echo "<a href='".$link_address1."'>Admin</a>";
 			
@@ -153,14 +164,14 @@ if (!$conn) {
 			 
 			 
 			 echo "<div class='col-md-3	'>
-			 <table class='table table-hover table-sm table-responsive table-bordered '>
+			 <table class='table table-hover  table-responsive table-bordered'>
 			  
 			<tr>
 			<th>Day</th>
 			<th>Total Clinics</th>
 			<th>Total appointments</th>
 			
-			<th>Total CO appointments</th>
+			<th>Total CO</th>
 			</div>
 			</tr>";
 			
@@ -191,9 +202,10 @@ if (!$conn) {
 			//Printing Morning Clinics
 			
 			  echo "<div class='col-md-3'>
-			 <table class='table table-hover table-sm table-responsive table-bordered '>
+			 <table class='table table-hover table-responsive table-bordered '>
 			  
 			<tr>
+			
 			<th>Clinics</th>
 			<th>Number of appointments</th>
 		
@@ -207,13 +219,7 @@ if (!$conn) {
 			
 			echo "<tr>";
 			 
-			 // echo "<td>".$results."</td>";
-			 
-			 
-			 
-			//echo "<td>".$formattedDate."</td>";	
-			//echo "<td>".$results['ownercodeevent']."</td>";	
-					
+			 				
 			echo "<td>".$results3['ownerwaitingroomevent']."</td>";
 			echo "<td>".$results3['uniqueCcount' ]."</td>";	
 			
@@ -235,6 +241,7 @@ if (!$conn) {
 			 <table class='table table-hover table-sm table-responsive table-bordered '>
 			  
 			<tr>
+			
 			<th>Clinics</th>
 			<th>Number of appointments</th>
 		
@@ -250,6 +257,7 @@ if (!$conn) {
 			
 			
 			echo "<tr>";
+			
 			echo "<td>".$results3afternoon ['ownerwaitingroomevent']."</td>";
 			echo "<td>".$results3afternoon ['uniqueCcount' ]."</td>";	
 			

@@ -71,6 +71,10 @@ $database = "mysql";
 
 session_start();
 
+$link_address1 = 'Datepicker.html';
+echo "<a class='fixed' href='".$link_address1."'>Home</a>";
+			
+
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Check connection
 if (!$conn) {
@@ -91,10 +95,14 @@ if (!$conn) {
 			$startdate=$_SESSION["date"];
 			
 			
+			
+			
+			
 			//$startdate ='2018-11-29';
 			$enddate ='2018-09-26';
 			
 			$timestamp = strtotime($startdate);
+			$day = date('l', $timestamp);
 			$formattedDate = date('F d, Y', $timestamp);
 			
 			//$CO= "select count(*) from(select COUNT('apttypecode') from qmy where apttypecode='CO') as CO";
@@ -133,7 +141,7 @@ if (!$conn) {
 			 echo "<div class='col-xs-4'>
 			 
 			
-			 <table class='table table-hover table-sm table-responsive table-bordered '>
+			 <table class='table table-hover table-sm table-responsive  table-warning'>
 			  
 			<tr>
 			
@@ -143,14 +151,16 @@ if (!$conn) {
 				
 				
 			<th>$formattedDate </th>
-			<th>Morning Clinics</th>
+			<th>$day</th>
+			<th>Morning outpatients Clinics</th>
+			
 			
 			 
 			 
 			</tr>";
 			 
 			 echo "<div class='col-xs-4'>
-			 <table class='table table-hover table-sm table-responsive table-bordered table-striped  '>
+			 <table class='table table-hover table-sm table-responsive table-bordered table-striped   '>
 			 
 			 
 			  
@@ -239,7 +249,7 @@ if (!$conn) {
 			  echo "<div class='col-xs-12'>
 			 
 			
-			 <table class='table table-hover table-sm table-responsive table-bordered'>
+			 <table class='table table-hover table-sm table-responsive  table-warning'>
 			
 			  
 			<tr>
@@ -250,7 +260,8 @@ if (!$conn) {
 				
 				
 			<th>$formattedDate </th>
-			<th>Afternoon Clinics</th>
+			<th>$day</th>
+			<th>Afternoon outpatients Clinics</th>
 			
 			 
 			 
