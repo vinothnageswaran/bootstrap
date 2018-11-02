@@ -93,6 +93,8 @@ $cons= mysqli_connect("$sqlname", "$username","$password","$db") or die(mysql_er
 
 $delete = "delete from qmy";
 
+
+
 mysqli_query($cons,"$delete") or die(mysqli_error($cons));
 
 //echo "<br>Cleaning up tables </br>";
@@ -106,8 +108,10 @@ mysqli_query($cons, '
 
 //delete empty rows if there are any
 
-$deleteemptyrows="delete from qmy where OwnerCodeEvent=''";
-mysqli_query($cons,"$deleteemptyrows") or die(mysqli_error($cons));
+//$deleteemptyrows="delete from qmy where OwnerCodeEvent=''";
+//mysqli_query($cons,"$deleteemptyrows") or die(mysqli_error($cons));
+
+//echo "Rows deleted";
 
 //display number of records updated in the daabase
 
