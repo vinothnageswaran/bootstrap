@@ -81,6 +81,22 @@ echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
  </FORM>
  
  
+<br>
+<br>
+<br>
+ 
+ <h2> Instructions</h2>
+
+<br>
+
+1.	Download the Event Export report from Queue manager and Save it. </br>
+2.	Hit the button to run the macro on the spreadsheet, which will generate qmtoreport.csv in C:/temp folder</br>
+3.	Go to admin console on the reporting tool and hit the upload button.</br>
+
+<br>
+<br>
+<br>
+ 
 </body>
 </html>
 
