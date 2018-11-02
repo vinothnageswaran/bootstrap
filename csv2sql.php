@@ -33,10 +33,17 @@ width: 260px;
 	<div class="form-group">
         <label for="csvfile" class="control-label col-xs-2">Name of the file</label>
 		<div class="col-xs-3">
-        <input type="name" class="form-control" name="csv" id="csv" required>
+        <input type="name" class="form-control"  value="C:/temp/qmtoreport.csv" name="csv" id="csv" required>
+		
+
 		</div>
 		eg. C:/temp/qmtoreport.csv
+		
+
     </div>
+	
+
+
 	<div class="form-group">
 	<label for="login" class="control-label col-xs-2"></label>
     <div class="col-xs-3">
@@ -45,8 +52,18 @@ width: 260px;
 	</div>
 </form>
 </div>
-
 </body>
+
+<h2> Instructions</h2>
+</n>
+</n>
+</n>
+1.	Download the Event Export report from Queue manager and Save it. </br>
+2.	Hit the button to run the macro on the spreadsheet.</br>
+3.	Go to admin console on the reporting tool and hit the upload button.</br>
+</br>
+</br>
+</br>
 
 <?php 
 
