@@ -1,0 +1,23 @@
+Sub Macro5()
+
+    Dim xlShtRng As Range
+    Dim wbkExport As Workbook
+    Dim shtToExport As Worksheet
+'
+' Macro5 Macro
+'
+
+'
+
+    Columns("P:P").Select
+    Selection.NumberFormat = "yyyy/mm/dd hh:mm"
+    
+     Application.DisplayAlerts = False
+    ActiveWorkbook.SaveAs Filename:= _
+   "C:\temp\qmtoreport.csv", FileFormat:=xlCSV, _
+    CreateBackup:=False
+    Application.DisplayAlerts = True
+
+    
+        
+End Sub

@@ -17,10 +17,6 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-
-
-
-
 </head>
 <body>
 <title>Bootstrap Example</title>
@@ -48,17 +44,7 @@
   <tr>
   </tr>
   </table>
-  
-  <style>
-a.fixed {
-position: fixed;
-right: 0;
-top: 100;
-width: 260px;
-}
-</style>
-  
-  <html>
+ <html>
 <body>
 
 
@@ -67,13 +53,18 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "mysql";
-// Create connection
+
+echo "\t" ;
+echo "\t" ;
+echo "\t" ;
+echo "\t" ;
+
 
 session_start();
 
-$link_address1 = 'Datepicker.html';
-echo "<a class='fixed' href='".$link_address1."'>Home</a>";
-			
+
+
+// Create connection			
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Check connection
@@ -95,17 +86,37 @@ if (!$conn) {
 			$startdate=$_SESSION["date"];
 			
 			
-			//$startdate ='2018-11-29';
-			$enddate ='2018-09-26';
+			
 			
 			$timestamp = strtotime($startdate);
 			$day = date('l', $timestamp);
 			$formattedDate = date('F d, Y', $timestamp);
 			
 			
-			$link_address1 = 'csv2sql.php';
+			$link_admin = 'csv2sql.php';
+			$link_datepicker = 'Datepicker.php';
+			$link_Clinicssummary= 'Clinicsummary.php';
 			
-			echo "<a style='padding-right: 5px ' href='".$link_address1."'>Admin</a>";
+			 echo "<div class='col-xs-4'>
+			 <table class='table table-hover table-sm table-responsive  table-warning'>
+			  <tr>
+			<div class='container'>
+			<div class='row'>
+			<th>$formattedDate </th>
+			<th>$day</th>
+			<th>Morning outpatients Clinics</th>
+			</tr>";
+			
+			
+			echo "<br>";
+			//links
+	
+			
+			echo "<a href='".$link_datepicker."'>Home</a>";		
+			echo str_repeat('&nbsp;', 5); 
+		//	echo "<a href='".$link_Clinicssummary."'>Clinics Summary</a>";
+		//	echo str_repeat('&nbsp;', 5); 
+			echo "<a href='".$link_admin."'>Admin</a>";
 			
 			
 			$Clinicssummarymorning= " select DISTINCT ownerwaitingroomevent , count(OwnerWaitingRoomEvent) as uniqueCcountm from qmy where DATE(startdatetime) = '$startdate' 
@@ -134,32 +145,13 @@ if (!$conn) {
 			 $Clinicssummarymorning_rawresults = mysqli_query($conn,"$Clinicssummarymorning") or die(mysqli_error($conn));
 			 
 			 
-			 echo "<div class='col-xs-4'>
-			 
-			
-			 <table class='table table-hover table-sm table-responsive  table-warning'>
-			  
-			<tr>
-			
-			<div class='container'>
-			<div class='row'>
-				
-				
-				
-			<th>$formattedDate </th>
-			<th>$day</th>
-			<th>Morning outpatients Clinics</th>
 			
 			
-			 
-			 
-			</tr>";
+			
+			 //Column headers
 			 
 			 echo "<div class='col-xs-4'>
-			 <table class='table table-hover table-sm table-responsive table-bordered table-striped   '>
-			 
-			 
-			  
+			 <table class='table table-hover table-sm table-responsive table-bordered table-striped   '>			  
 			<tr>
 			<th>Clinics</th>
 			<th>Clinic Description</th>
@@ -170,9 +162,6 @@ if (!$conn) {
 			<th>Last Patient</th>
 			<th>Chart only</th>
 			
-			
-			
-			
 			</div>
 			</tr>";
 			$Totalmorning=0;
@@ -181,35 +170,34 @@ if (!$conn) {
 			
 				
 					
-						while($results = mysqli_fetch_assoc($raw_results)){
+		while($results = mysqli_fetch_assoc($raw_results)){
 			
             
 				
 			echo "<tr>";
 			echo "<td>".$results['OwnerWaitingRoomEvent']."</td>";
-			   echo "<td>".$results['ownercodeevent']." </td>";
-			   //echo "<td>".$results['Appointmentdate']."</td>";
-			   echo "<td>".$results['OwnerDescEvent']." </td>";
-			   echo "<td>".$results['COUNT']."</td>";
-			  echo "<td>".$results['FP']."</td>";
-			  echo "<td>".$results['LP']."</td>";
-			 echo "<td>".$results['CO']."</td>";
-			  // echo '<a href=pageyouwant.php?COUNT="'.$results['COUNT'].'"</a>';
+			echo "<td>".$results['ownercodeevent']." </td>";
+			//echo "<td>".$results['Appointmentdate']."</td>";
+			echo "<td>".$results['OwnerDescEvent']." </td>";
+			echo "<td>".$results['COUNT']."</td>";
+			echo "<td>".$results['FP']."</td>";
+			echo "<td>".$results['LP']."</td>";
+			echo "<td>".$results['CO']."</td>";
+			 // echo '<a href=pageyouwant.php?COUNT="'.$results['COUNT'].'"</a>';
 			  
 			 
 
 			}
 			
-			while($Clinicssummarymorning_results = mysqli_fetch_assoc($Clinicssummarymorning_rawresults )){
+		while($Clinicssummarymorning_results = mysqli_fetch_assoc($Clinicssummarymorning_rawresults )){
 				
-			  $Totalmorning = $Totalmorning + $Clinicssummarymorning_results['uniqueCcountm'];
+			 $Totalmorning = $Totalmorning + $Clinicssummarymorning_results['uniqueCcountm'];
 			  
-			   echo "</tr>";
+			 echo "</tr>";
 				
 			}
 			echo"<td></td>" ; 
 			echo"<td></td>" ; 
-			
 			 
 			echo"<td>Total Morning Clinics excluding CO<br></td>" ;  	
 			echo "<td>$Totalmorning</td>";	
@@ -275,11 +263,7 @@ if (!$conn) {
 			<tr>
 			
 			<div class='container'>
-			<div class='row'>
-				
-			
-			
-			
+			<div class='row'>		
 			<th>Clinics</th>
 			<th >Clinic Description</th>
 			<th>Clinics</th>
@@ -288,20 +272,14 @@ if (!$conn) {
 			<th>First Patient</th>
 			<th>Last Patient</th>
 			<th>Chart only</th>
-			
-			
 			</div>
 			</tr>";			
 		
 			
 			$Totalafternoon=0;
 			
-			
-				
-		
-			
-				
-					while($resultsa = mysqli_fetch_assoc($raw_resultsa)){
+
+			while($resultsa = mysqli_fetch_assoc($raw_resultsa)){
 					
 				
 			echo "<tr>";
