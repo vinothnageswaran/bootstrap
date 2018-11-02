@@ -54,16 +54,7 @@ width: 260px;
 </div>
 </body>
 
-<h2> Instructions</h2>
-</n>
-</n>
-</n>
-1.	Download the Event Export report from Queue manager and Save it. </br>
-2.	Hit the button to run the macro on the spreadsheet.</br>
-3.	Go to admin console on the reporting tool and hit the upload button.</br>
-</br>
-</br>
-</br>
+
 
 <?php 
 
