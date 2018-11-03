@@ -46,7 +46,6 @@ echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
 <p>Date<input type="text" VALUE ="" name ="datepicker1" id="datepicker" required></p>
 
 
-
 <br>
 <br>
 
@@ -81,11 +80,22 @@ echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
  </FORM>
  
  
+ 
 <br>
 <br>
 <br>
  
- <h2> Instructions</h2>
+<div class="container">
+  <h3></h3>
+  <a href="#" data-toggle="tooltip" title="Macros converts the raw report in to CSV + modify column P date format to yyyy-mm-dd hh:mm:ss and place the CSV file in to default folder C:\temp\qmtoreport.csv">Instructions</a>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+ 
 
 <br>
 
@@ -97,7 +107,6 @@ echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
 <br>
 <br>
 
- 
 </body>
 </html>
 
