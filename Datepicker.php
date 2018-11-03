@@ -38,7 +38,7 @@
 
 $link_address1 = 'csv2sql.php';
 echo str_repeat('&nbsp;', 450); 
-echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
+echo "<a class='fixed' href='".$link_address1."' data-toggle'tooltip' title='Macros modifies column P date format to yyyy-mm-dd hh:mm:ss and place the CSV file in to default folder C:/temp/qmtoreport.csv'>Admin</a>";
 
 ?>
 
@@ -96,18 +96,6 @@ echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
 <br>
 <br>
 <br>
-
- 
-<div class="container">
- 
-  <a href=data-toggle="tooltip" title="Macros converts the raw report in to CSV + modify column P date format to yyyy-mm-dd hh:mm:ss and place the CSV file in to default folder C:\temp\qmtoreport.csv">Macro details</a>
-</div>
-
-<script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
 
 </body>
 </html>
