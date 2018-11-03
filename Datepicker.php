@@ -32,6 +32,24 @@
     tab2 { padding-left: 8em; }
     tab3 { padding-left: 20em; }
 } 
+
+
+.button {
+	border: none;
+	background: #3a7999;
+	color: #f2f2f2;
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 5px;
+	position: relative;
+	box-sizing: border-box;
+	transition: all 50000ms ease; 
+	
+}
+
+
+
+
 </style>
 <h2 class="title">PCH Outpatients summary report</h2>
 <?php
@@ -64,14 +82,21 @@ echo "<a class='fixed' href='".$link_address1."' data-toggle'tooltip' title='Mac
 
 <div style="position: relative;">
   
+ 
+<br>
+<br>
+<br>
 
 
  <div class="col-xs-3">
  
  <div style="position: relative;">
+ 
+ <div class="wrapper">
 
- <div style="position: absolute; top: 0; right: 10;"> <INPUT  TYPE = "Submit"  VALUE = "Generate Report" /></div>
+ <div style="position: absolute; top: 0; right: 10;"> <INPUT  class = "button" TYPE = "Submit"  VALUE = "Generate Report" /></div>
 
+ </div>
 
  </div>
  
@@ -96,6 +121,7 @@ echo "<a class='fixed' href='".$link_address1."' data-toggle'tooltip' title='Mac
 <br>
 <br>
 <br>
+
 
 </body>
 </html>
