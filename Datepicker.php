@@ -84,21 +84,11 @@ echo "<a class='fixed' href='".$link_address1."'>Admin</a>";
 <br>
 <br>
 <br>
- 
-<div class="container">
-  <h3></h3>
-  <a href="#" data-toggle="tooltip" title="Macros converts the raw report in to CSV + modify column P date format to yyyy-mm-dd hh:mm:ss and place the CSV file in to default folder C:\temp\qmtoreport.csv">Instructions</a>
-</div>
 
-<script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
  
 
 <br>
-
+ <h3>Instructions</h3>
 1.	Download the Event Export report from Queue manager and Save it. </br>
 2.	Hit the button to run the macro on the spreadsheet, which will generate qmtoreport.csv in C:/temp folder</br>
 3.	Go to admin console on the reporting tool and hit the upload button.</br>
@@ -106,6 +96,18 @@ $(document).ready(function(){
 <br>
 <br>
 <br>
+
+ 
+<div class="container">
+ 
+  <a href=data-toggle="tooltip" title="Macros converts the raw report in to CSV + modify column P date format to yyyy-mm-dd hh:mm:ss and place the CSV file in to default folder C:\temp\qmtoreport.csv">Macro details</a>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 
 </body>
 </html>
