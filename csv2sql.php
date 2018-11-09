@@ -33,17 +33,10 @@ width: 260px;
 	<div class="form-group">
         <label for="csvfile" class="control-label col-xs-2">Name of the file</label>
 		<div class="col-xs-3">
-        <input type="name" class="form-control"  value="C:/temp/qmtoreport.csv" name="csv" id="csv" required>
-		
-
+        <input type="name" class="form-control" value="//hin-tfs/releases/QueueManager/qmtoreport.csv" name="csv" id="csv" required>
 		</div>
 		eg. C:/temp/qmtoreport.csv
-		
-
     </div>
-	
-
-
 	<div class="form-group">
 	<label for="login" class="control-label col-xs-2"></label>
     <div class="col-xs-3">
@@ -52,9 +45,8 @@ width: 260px;
 	</div>
 </form>
 </div>
+
 </body>
-
-
 
 <?php 
 
@@ -67,6 +59,9 @@ echo "<a class='fixed' href='".$link_address1."'>Home</a>";
 $sqlname='localhost';
 $username='root';
 $table='qmy';
+$password='';
+
+/**
 
 if(isset($_POST['password']))
 {
@@ -76,6 +71,8 @@ else
 {
 $password= '';
 }
+
+**/
 $db='mysql';
 
 
@@ -101,8 +98,6 @@ $cons= mysqli_connect("$sqlname", "$username","$password","$db") or die(mysql_er
 
 $delete = "delete from qmy";
 
-
-
 mysqli_query($cons,"$delete") or die(mysqli_error($cons));
 
 //echo "<br>Cleaning up tables </br>";
@@ -111,15 +106,13 @@ mysqli_query($cons, '
     LOAD DATA LOCAL INFILE "'.$file.'"
         INTO TABLE '.$table.'
         FIELDS TERMINATED by \',\'
-        LINES TERMINATED BY \'\n\'
+        LINES TERMINATED BY \'\r\n\'
 ');
 
 //delete empty rows if there are any
 
-//$deleteemptyrows="delete from qmy where OwnerCodeEvent=''";
-//mysqli_query($cons,"$deleteemptyrows") or die(mysqli_error($cons));
-
-//echo "Rows deleted";
+$deleteemptyrows="delete from qmy where OwnerCodeEvent=''";
+mysqli_query($cons,"$deleteemptyrows") or die(mysqli_error($cons));
 
 //display number of records updated in the daabase
 
