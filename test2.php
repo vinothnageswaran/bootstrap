@@ -265,7 +265,7 @@ if (!$conn) {
 			<div class='container'>
 			<div class='row'>		
 			<th>Clinics</th>
-			<th >Clinic Description</th>
+			<th>Clinic Description</th>
 			<th>Clinics</th>
 			<th>Patients</th>
 			
