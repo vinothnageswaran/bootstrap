@@ -33,7 +33,7 @@ width: 260px;
 	<div class="form-group">
         <label for="csvfile" class="control-label col-xs-2">Name of the file</label>
 		<div class="col-xs-3">
-        <input type="name" class="form-control" name="csv" id="csv" required>
+        <input type="name" class="form-control" value="//hin-tfs/releases/QueueManager/qmtoreport.csv" name="csv" id="csv" required>
 		</div>
 		eg. C:/temp/qmtoreport.csv
     </div>
@@ -52,13 +52,16 @@ width: 260px;
 
 error_reporting(0);
 
-$link_address1 = 'Datepicker.html';
+$link_address1 = 'Datepicker.php';
 echo "<a class='fixed' href='".$link_address1."'>Home</a>";
 			
 			
 $sqlname='localhost';
 $username='root';
 $table='qmy';
+$password='';
+
+/**
 
 if(isset($_POST['password']))
 {
@@ -68,6 +71,8 @@ else
 {
 $password= '';
 }
+
+**/
 $db='mysql';
 
 
@@ -79,13 +84,17 @@ if ($file== null)
 exit("");
 
 
+
+
 $cons= mysqli_connect("$sqlname", "$username","$password","$db") or die(mysql_error());
-$result1=mysqli_query($cons,"select count(*) count from $table");
-$r1=mysqli_fetch_array($result1);
+//$result1=mysqli_query($cons,"select count(*) count from $table");
+//$r1=mysqli_fetch_array($result1);
 //$count1=(int)$r1['count'];
 //If the fields in CSV are not seperated by comma(,)  replace comma(,) in the below query with that  delimiting character 
 //If each tuple in CSV are not seperated by new line.  replace \n in the below query  the delimiting character which seperates two tuples in csv
 // for more information about the query http://dev.mysql.com/doc/refman/5.1/en/load-data.html
+
+//Delete all rows before uploading the data
 
 $delete = "delete from qmy";
 
@@ -97,7 +106,7 @@ mysqli_query($cons, '
     LOAD DATA LOCAL INFILE "'.$file.'"
         INTO TABLE '.$table.'
         FIELDS TERMINATED by \',\'
-        LINES TERMINATED BY \'\n\'
+        LINES TERMINATED BY \'\r\n\'
 ');
 
 //delete empty rows if there are any
@@ -109,7 +118,7 @@ mysqli_query($cons,"$deleteemptyrows") or die(mysqli_error($cons));
 
 $result2=mysqli_query($cons,"select count(*) count from $table");
 $r2=mysqli_fetch_array($result2);
-$count2=(int)$r2['count'];
+$count2=$r2['count'];
 //$count=$count2-$count1;
 if($count2>0)
 echo "Success";

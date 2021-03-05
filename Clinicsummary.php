@@ -67,8 +67,8 @@ $username = "root";
 $password = "";
 $database = "mysql";
 
-$link_address1 = 'Datepicker.html';
-echo "<a href='".$link_address1."'>Home</a>";
+
+
 
 echo "\t" ;
 echo "\t" ;
@@ -94,14 +94,38 @@ if (!$conn) {
 			$formattedDate = date('F d, Y', $timestamp);
 			
 			
+			$day = date('l', $timestamp);
+			
 			
 			//$CO= "select count(*) from(select COUNT('apttypecode') from qmy where apttypecode='CO') as CO";
 			$FirstPatient= "SELECT max(DATE_FORMAT(startdatetime, '%H:%i')) FROM qmy";
 			
-			echo "\t" ;
-			echo "\t" ;
-			$link_address1 = 'csv2sql.php';
-			echo "<a class='top-right' href='".$link_address1."'>Admin</a>";
+			$link_admin = 'csv2sql.php';
+			$link_datepicker = 'Datepicker.php';
+			
+			echo "<div class='col-md-2'>
+			 
+			
+			 <table class='table table-hover table-sm table-responsive  table-warning'>
+			  
+			<tr>
+			
+			<div class='container'>
+			<div class='row'>
+				
+				
+				
+			<th>$formattedDate </th>
+			<th>$day</th>
+			
+			</tr>";
+
+			
+			echo "<a href='".$link_datepicker."'>Home</a>";
+			echo str_repeat('&nbsp;', 5); 
+			echo "<a href='test2.php'>Details of appointments</a>";
+			echo str_repeat('&nbsp;', 5); 
+			echo "<a class='top-right' href='".$link_admin."'>Admin</a>";
 			
 			"<td></td>";
 			
@@ -111,7 +135,7 @@ if (!$conn) {
 			
 			
 			
-			echo "<a href='test2.php'>Outpatient appointment details</a>";
+			
 			
 		
 		//Morning
@@ -161,14 +185,15 @@ if (!$conn) {
 			 $raw_results3afternoon = mysqli_query($conn,"$query2afternoon") or die(mysqli_error($conn));
 			//$raw_results4 = mysqli_query($conn,"$query2a") or die(mysqli_error($conn));
 			 
+		
 			
 			 
 			 
-			 echo "<div class='col-md-3	'>
+			 echo "<div class='col-md-2	'>
 			 <table class='table table-hover  table-responsive table-bordered'>
-			  <thead class='alert-info'>
+			  <thead >
 			<tr>
-			<th>Day</th>
+			
 			<th>Total Clinics</th>
 			<th>Total appointments</th>
 			
@@ -177,7 +202,7 @@ if (!$conn) {
 			</tr>";
 			
 			
-			
+			$Sno=0;
 			
 			while($results2 = mysqli_fetch_assoc($raw_results2)){
 			 while($results1 = mysqli_fetch_assoc($raw_results1)){
@@ -186,9 +211,10 @@ if (!$conn) {
 			 
 			 
 			
-			 
+			 $Sno=$Sno+1;
 			
-			echo "<td>".$formattedDate."</td>";	
+			//echo "<td>".$formattedDate."</td>";
+					
 				
 			echo "<td>".$results['Clinicscount1']."</td>";
 			echo "<td>".$results1['Total']." </td>";
@@ -201,8 +227,25 @@ if (!$conn) {
 			}
 			
 			
+			echo "<div class='col-md-2'>
+			 
 			
-			//Printing Morning Clinics
+			 <table class='table table-hover table-sm table-responsive  table-warning'>
+			  
+			<tr>
+			
+			<div class='container'>
+			<div class='row'>
+				
+				
+				
+			<th>Morning Clinics Summary </th>
+			
+			
+			</tr>";
+			
+			
+			//Morning Clinics Summary column header	
 			
 			  echo "
 			 <table class='table table-hover table-responsive table-bordered table-bg-primary'>
@@ -219,7 +262,7 @@ if (!$conn) {
 			
 			"</br>";
 			
-			echo "<label for='one'>Morning Clincis Summary</label>";
+			//Printing Morning Clinics
 			
 			$Total= 0;
 			
@@ -241,10 +284,27 @@ if (!$conn) {
 			
 			
 			}
-	    		 echo"<td>Total Morning Clinics<br></td>" ;  	
+	    		 echo"<td>Total Morning appointments<br></td>" ;  	
 				echo "<td>$Total</td>";	
 				
+			
+			
+			//Afternoon Clinics Summary label
+
+			echo "<div class='col-md-3'>
+			<table class='table table-hover table-sm table-responsive  table-warning'>
+			  
+			<tr>
+			
+			<div class='container'>
+			<div class='row'>
+			<th>Afternoon Clinics Summary </th>	
+			</tr>";		
 				
+			
+			
+			
+			//Afternoon Clinics Summary column header		
 				
 				echo "<div class='col-xs-4'>
 			 <table class='table table-hover table-sm table-responsive table-bordered '>
@@ -257,9 +317,9 @@ if (!$conn) {
 			</div>
 			</tr>";
 			
-				//Printing Afternoon Clinics
+			//Printing Afternoon Clinics
 				
-			$data = array();
+			
 			
 			$Totalafternoon= 0;
 			while($results3afternoon = mysqli_fetch_assoc($raw_results3afternoon)){
@@ -277,11 +337,11 @@ if (!$conn) {
 			
 			
 			}
-				echo"<td>Total Afternoon Clinics<br></td>" ;  	
+				echo"<td>Total Afternoon appointments<br></td>" ;  	
 				echo "<td>$Totalafternoon</td>";	
 	    		
 			
-		echo "<label for='one'>Afternoon clinics summary</label>";
+		
 				
 				
 ?>
